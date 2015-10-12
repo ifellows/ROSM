@@ -8,6 +8,7 @@ See: http://blog.fellstat.com/?cat=15
 To build and install package from source run
 
 sh makePackage
+
 NOAWT=1 R CMD INSTALL OpenStreetMap_*.*.*.tar.gz
 
 (Replace the stars with the version of the package created)
