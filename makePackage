@@ -1,0 +1,10 @@
+javac -target 1.5 -source 1.5 -d . -classpath OpenStreetMap/inst/java/JMapViewer.jar edu/cens/spatial/RTileController.java
+jar fc RTileController.jar edu/cens/spatial/*.class
+mv RTileController.jar OpenStreetMap/inst/java/RTileController.jar
+cp -rf edu/cens/spatial/RTileController.java OpenStreetMap/java/
+cp -rf JMapViewer/org/ OpenStreetMap/java/
+
+NOAWT=1 R CMD build OpenStreetMap
+
+rm -rf OpenStreetMap/java/*
+rm edu/cens/spatial/*.class

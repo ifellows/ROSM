@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/fellstat_packages/!svn/ver/2/edu/cens/spatial
+END
+CoordView.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/fellstat_packages/!svn/ver/2/edu/cens/spatial/CoordView.java
+END
+AcceptSubsetDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/fellstat_packages/!svn/ver/2/edu/cens/spatial/AcceptSubsetDialog.java
+END
+SpatialDataViewFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/fellstat_packages/!svn/ver/2/edu/cens/spatial/SpatialDataViewFactory.java
+END
+SpatialDataView.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/fellstat_packages/!svn/ver/2/edu/cens/spatial/SpatialDataView.java
+END
+RTileController.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/fellstat_packages/!svn/ver/2/edu/cens/spatial/RTileController.java
+END
+SpatialVariableSource.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/fellstat_packages/!svn/ver/2/edu/cens/spatial/SpatialVariableSource.java
+END
+DFPointConvertDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/fellstat_packages/!svn/ver/2/edu/cens/spatial/DFPointConvertDialog.java
+END
+DeducerDataFrameNameField.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/fellstat_packages/!svn/ver/2/edu/cens/spatial/DeducerDataFrameNameField.java
+END
+SpatialVariableViewFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/fellstat_packages/!svn/ver/2/edu/cens/spatial/SpatialVariableViewFactory.java
+END
+ShapeFileLoader.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/fellstat_packages/!svn/ver/2/edu/cens/spatial/ShapeFileLoader.java
+END
+ConvertToDataFrame.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/fellstat_packages/!svn/ver/2/edu/cens/spatial/ConvertToDataFrame.java
+END
+DeducerSpatial.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/fellstat_packages/!svn/ver/2/edu/cens/spatial/DeducerSpatial.java
+END
+CoordViewFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/fellstat_packages/!svn/ver/2/edu/cens/spatial/CoordViewFactory.java
+END
+DeducerOkCancelPanel.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/fellstat_packages/!svn/ver/2/edu/cens/spatial/DeducerOkCancelPanel.java
+END
+SpatialVariableView.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/fellstat_packages/!svn/ver/2/edu/cens/spatial/SpatialVariableView.java
+END
