@@ -1,0 +1,14 @@
+<project default="compile">
+    <target name="compile">
+        <mkdir dir="bin"/>
+        <javac target="1.5" source="1.5" srcdir="org/org" destdir="bin"/>
+    </target>
+    <target name="jar">
+        <mkdir dir="build/jar"/>
+        <jar destfile="JMapViewer.jar" basedir="bin">
+            <manifest>
+                <attribute name="Main-Class" value="org.openstreetmap.gui.jmapviewer.Demo"/>
+            </manifest>
+        </jar>
+    </target>
+</project>
