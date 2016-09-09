@@ -3,15 +3,16 @@ Maintainer: Ian Fellows <ian@fellstat.com>
 License: GPL-2 | file LICENCE
 Title: Access to Open Street Map Raster Images
 Author: Ian Fellows, using the JMapViewer library by Jan Peter Stotz
-Description: Accesses high resolution raster maps using the OpenStreetMap protocol. Dozens of road, satellite,
-    and topographic map servers are directly supported, including CloudMade,
-    Mapnik, Bing, stamen, and MapQuest. Maps can be plotted using either base
-    graphics, or ggplot2. This package is not affiliated with the OpenStreetMap.org mapping project.
+Description: Accesses high resolution raster maps using the OpenStreetMap
+    protocol. Dozens of road, satellite, and topographic map servers are directly
+    supported, including Apple, Mapnik, Bing, and stamen. Additionally raster maps
+    may be constructed using custom tile servers.  Maps can be
+    plotted using either base graphics, or ggplot2. This package is not affiliated
+    with the OpenStreetMap.org mapping project.
 SystemRequirements: Java (>= 1.5), JRI
-Version: 0.3.2
+Version: 0.3.3
 URL: http://www.fellstat.com http://blog.fellstat.com/?cat=15
-    http://research.cens.ucla.edu/
-Date: 2015-10-06
+Date: 2016-09-09
 Depends:
     methods,
     R (>= 2.10.0)
@@ -19,6 +20,7 @@ Suggests:
     colorspace,
     maptools
 Imports:
+	grDevices,
     ggplot2 (>= 0.9.0),
     rJava,
     raster,
@@ -29,3 +31,4 @@ Collate:
     'osm.R'
     'autoplot.R'
     'zzz.R'
+RoxygenNote: 5.0.1

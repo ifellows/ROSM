@@ -22,10 +22,7 @@ import javax.swing.JTextField;
 import org.openstreetmap.gui.jmapviewer.interfaces.TileLoader;
 import org.openstreetmap.gui.jmapviewer.interfaces.TileSource;
 import org.openstreetmap.gui.jmapviewer.tilesources.BingAerialTileSource;
-import org.openstreetmap.gui.jmapviewer.tilesources.MapQuestAerialTileSource;
-import org.openstreetmap.gui.jmapviewer.tilesources.MapQuestTileSource;
 import org.openstreetmap.gui.jmapviewer.tilesources.OsmTileSource;
-import org.openstreetmap.gui.jmapviewer.tilesources.OsmTileSource.CloudMade;
 import org.openstreetmap.gui.jmapviewer.tilesources.StamenTileSource;
 
 /**
@@ -67,8 +64,6 @@ public class Demo extends JFrame {
         		new OsmTileSource.MapnikBw(),
         		new OsmTileSource.MapToolKitTopo(),
         		new OsmTileSource.Waze(),
-        		new MapQuestTileSource(),
-        		new MapQuestAerialTileSource(),
                 new BingAerialTileSource(),
         		new StamenTileSource.Toner(),
         		new StamenTileSource.Terrain(),
@@ -81,19 +76,14 @@ public class Demo extends JFrame {
         		new OsmTileSource.Nps(),
         		new OsmTileSource.Apple(),
         		new OsmTileSource.Skobbler(),
-        		new OsmTileSource.CloudMade("2"),
-        		new OsmTileSource.CloudMade("999"),
-        		new OsmTileSource.CloudMade("998"),
-        		new OsmTileSource.CloudMade("7"),
-        		new OsmTileSource.CloudMade("1960"),
-        		new OsmTileSource.CloudMade("1155"),
-        		new OsmTileSource.CloudMade("12284"),
         		new OsmTileSource.HillShade(),
         		new OsmTileSource.CycleMap(),
         		new OsmTileSource.BBBikeGerman(),
                 new OsmTileSource.BBBike(), 
         		new OsmTileSource.PublicTransport(),
-        		new OsmTileSource.Transport() });
+        		new OsmTileSource.Transport(),
+        		new OsmTileSource.UrlTileSource(null)
+        		});
         tileSourceSelector.addItemListener(new ItemListener() {
             public void itemStateChanged(ItemEvent e) {
                 map.setTileSource((TileSource) e.getItem());

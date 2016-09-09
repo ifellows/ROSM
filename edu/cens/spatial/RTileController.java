@@ -34,8 +34,6 @@ public class RTileController extends TileController{
 	        		new OsmTileSource.MapnikBw(),
 	        		new OsmTileSource.MapToolKitTopo(),
 	        		new OsmTileSource.Waze(),
-	        		new MapQuestTileSource(),
-	        		new MapQuestAerialTileSource(),
 	                new BingAerialTileSource(),
 	        		new StamenTileSource.Toner(),
 	        		new StamenTileSource.Terrain(),
@@ -48,13 +46,6 @@ public class RTileController extends TileController{
 	        		new OsmTileSource.Nps(),
 	        		new OsmTileSource.Apple(),
 	        		new OsmTileSource.Skobbler(),
-	        		new OsmTileSource.CloudMade("2"),
-	        		new OsmTileSource.CloudMade("999"),
-	        		new OsmTileSource.CloudMade("998"),
-	        		new OsmTileSource.CloudMade("7"),
-	        		new OsmTileSource.CloudMade("1960"),
-	        		new OsmTileSource.CloudMade("1155"),
-	        		new OsmTileSource.CloudMade("12284"),
 	        		new OsmTileSource.HillShade(),
 	        		new OsmTileSource.CycleMap(),
 	        		new OsmTileSource.BBBikeGerman(),
@@ -66,9 +57,8 @@ public class RTileController extends TileController{
 		if(cont!=null)
 			return cont;
 		TileSource src = null;
-		if(type.startsWith("cloudmade")){
-			String id = type.split("-")[1];
-			src = new OsmTileSource.CloudMade(id);
+		if(type.startsWith("http")){
+			src = new OsmTileSource.UrlTileSource(type);
 		}else{
 			for(int i=0;i<sources.length;i++){
 				if(sources[i].getName().equals(type)){
@@ -89,6 +79,8 @@ public class RTileController extends TileController{
 			public void tileLoadingFinished(Tile arg0, boolean arg1) {}
 			
 		});
+		if(map.size() > 4)
+			map.size();
 		map.put(type, cont);
 		return cont;
 		
@@ -134,7 +126,7 @@ public class RTileController extends TileController{
     	return res;
     }
     
-	public static void setCloudMadeKey(String key){
-		OsmTileSource.cloudMadeKey = key;
-	}
+//	public static void setCloudMadeKey(String key){
+//		OsmTileSource.cloudMadeKey = key;
+//	}
 }

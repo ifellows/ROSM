@@ -8,7 +8,7 @@ public class OsmTileSource {
 
     public static final String MAP_MAPNIK = "http://tile.openstreetmap.org";
     public static final String MAP_OSMA = "http://tah.openstreetmap.org/Tiles";
-    public static String cloudMadeKey = "c94706833793432e93b3a9cd9e0cce52";
+    //public static String cloudMadeKey = "c94706833793432e93b3a9cd9e0cce52";
 
     public static class Mapnik extends AbstractOsmTileSource {
         public Mapnik() {
@@ -250,9 +250,16 @@ public class OsmTileSource {
     
     public static class MapBox extends AbstractOsmTileSource {
         public MapBox() {
-            super("mapbox", "http://a.tiles.mapbox.com/v3/examples.map-vyofok3q");
+            super("mapbox", "");
         }
-
+        
+        public String getTilePath(int zoom, int tilex, int tiley) throws IOException {
+        	String urlLoc = "http://api.tiles.mapbox.com/v4/examples.map-zr0njcqy/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoidGhlZmVsbCIsImEiOiJjaXN1anNwODEwMWlrMnRvZHBhamRrZjlqIn0.Gf8qLSpZ6yo5yfQhEutFfQ";
+        	urlLoc = urlLoc.replace("{z}", "" + zoom);
+        	urlLoc = urlLoc.replace("{x}", "" + tilex);
+        	urlLoc = urlLoc.replace("{y}", "" + tiley);
+            return urlLoc;
+        }
 		public TileUpdate getTileUpdate() {
 			return TileUpdate.IfNoneMatch;
 		}
@@ -497,6 +504,39 @@ public class OsmTileSource {
 	    }
     }
     
+    public static class UrlTileSource extends AbstractOsmTileSource {
+    	public String url = "https://a.tiles.mapbox.com/v4/mapquest.streets-mb/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwcXVlc3QiLCJhIjoiY2Q2N2RlMmNhY2NiZTRkMzlmZjJmZDk0NWU0ZGJlNTMifQ.mPRiEubbajc6a5y9ISgydg";
+        public UrlTileSource(String urlLoc) {
+            super("url","");
+            if(urlLoc != null)
+            	url = urlLoc;
+        }
+        
+        public String getTilePath(int zoom, int tilex, int tiley) throws IOException {
+        	String urlLoc = url;
+        	urlLoc = urlLoc.replace("{z}", "" + zoom);
+        	urlLoc = urlLoc.replace("{x}", "" + tilex);
+        	urlLoc = urlLoc.replace("{y}", "" + tiley);
+            return urlLoc;
+        }
+
+		public TileUpdate getTileUpdate() {
+			return TileUpdate.IfNoneMatch;
+		}
+		
+	    public String getAttributionText(int zoom, Coordinate topLeft, Coordinate botRight) {
+	        return "";
+	    }
+
+	    public String getAttributionLinkURL() {
+	        return "";
+	    }
+
+	    public String getTermsOfUseURL() {
+	        return "";
+	    }
+    } 
+    /*
     public static class CloudMade extends AbstractOsmTileSource {
     	public String mapId;
         public CloudMade(String id) {
@@ -524,5 +564,5 @@ public class OsmTileSource {
 	    public String getTermsOfUseURL() {
 	        return "http://cloudmade.com/website-terms-conditions";
 	    }
-    }    
+    }    */
 }
