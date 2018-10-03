@@ -162,14 +162,14 @@ openmap <- function(upperLeft,lowerRight,zoom=NULL,type=c("osm","osm-bw","maptoo
 	}
 =======
 openmap <- function(upperLeft,lowerRight,zoom=NULL,
-                    type=c("osm","osm-bw","maptoolkit-topo","waze","bing",
-                           "stamen-toner","stamen-terrain","stamen-watercolor",
-                           "osm-german","osm-wanderreitkarte","mapbox",
-                           "esri","esri-topo","nps","apple-iphoto","skobbler",
-                           "hillshade","opencyclemap","osm-transport",
-                           "osm-public-transport","osm-bbike","osm-bbike-german"),
-                    minNumTiles=9L, mergeTiles=TRUE){
-  type <- if (substring(type, 1L, 4L) == 'http') type else match.arg(type)
+		type=c("osm","osm-bw","maptoolkit-topo","waze","bing",
+			"stamen-toner","stamen-terrain","stamen-watercolor",
+			"osm-german","osm-wanderreitkarte","mapbox",
+			"esri","esri-topo","nps","apple-iphoto","skobbler",
+			"hillshade","opencyclemap","osm-transport",
+			"osm-public-transport","osm-bbike","osm-bbike-german"),
+		minNumTiles=9L, mergeTiles=TRUE){
+	type <- if (substring(type, 1L, 4L) == 'http') type else match.arg(type)
 
 >>>>>>> a1f8596... Some tidying of code in openmap()
 	.tryJava()
