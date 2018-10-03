@@ -169,7 +169,7 @@ openmap <- function(upperLeft,lowerRight,zoom=NULL,
                            "hillshade","opencyclemap","osm-transport",
                            "osm-public-transport","osm-bbike","osm-bbike-german"),
                     minNumTiles=9L, mergeTiles=TRUE){
-  type = if (substring(type, 1L, 4L) == 'http') type else match.arg(type)
+  type <- if (substring(type, 1L, 4L) == 'http') type else match.arg(type)
 
 >>>>>>> a1f8596... Some tidying of code in openmap()
 	.tryJava()
