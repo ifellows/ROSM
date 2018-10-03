@@ -45,7 +45,7 @@ osmtile <- function(x,y,zoom,type="osm"){
 	colrs <- paste("#",substring(res1,3),sep="")
 	sc <- 20037508*2
 	minim <- -20037508
-	
+
 	p1 <- c(x/(2^zoom)*sc+minim,-(y/(2^zoom)*sc+minim))
 	p2 <- c((x+1)/(2^zoom)*sc+minim,-((y+1)/(2^zoom)*sc+minim))
 	bbox <- list(p1=p1,p2=p2)
@@ -80,25 +80,25 @@ plot.osmtile <- function(x, y=NULL, add=TRUE, raster=TRUE, ...){
 				...)
 }
 
-#' Get a map based on lat long coordinates 
+#' Get a map based on lat long coordinates
 #' @param upperLeft the upper left lat and long
 #' @param lowerRight the lower right lat and long
 #' @param zoom the zoom level. If null, it is determined automatically
 #' @param type the tile server from which to get the map, or the url pattern.
 #' @param minNumTiles If zoom is null, zoom will be chosen such that
-#' 					the number of map tiles is greater than or equal 
+#' 					the number of map tiles is greater than or equal
 #' 					to this number.
 #' @param mergeTiles should map tiles be merged into one tile
-#' @details 
-#' Type may be the url of a custom tile server (http://wiki.osgeo.org/wiki/Tile_Map_Service_Specification). 
+#' @details
+#' Type may be the url of a custom tile server (http://wiki.osgeo.org/wiki/Tile_Map_Service_Specification).
 #' should include {z}, {y}, and {x} specifying where the zoom, xtile and ytile location should be substituted. e.g.
-#' 
-#' http://api.someplace.com/.../{z}/{x}/{y} 
-#' 
+#'
+#' http://api.someplace.com/.../{z}/{x}/{y}
+#'
 #' @examples \dontrun{
 #' #show some of the maps available
-#' nm <- c("osm", "maptoolkit-topo", "bing", "stamen-toner", 
-#' 		"stamen-watercolor", "esri", "esri-topo", 
+#' nm <- c("osm", "maptoolkit-topo", "bing", "stamen-toner",
+#' 		"stamen-watercolor", "esri", "esri-topo",
 #' 		"nps", "apple-iphoto", "skobbler")
 #' par(mfrow=c(3,4))
 #' #Korea
@@ -117,7 +117,7 @@ plot.osmtile <- function(x, y=NULL, add=TRUE, raster=TRUE, ...){
 #' 		minNumTiles=4,
 #' 		type=paste0(baseUrl,apiKey))
 #' plot(map)
-#' 
+#'
 #' baseUrl <- "https://api.mapbox.com/styles/v1/mapbox/dark-v9/tiles/256/{z}/{x}/{y}"
 #' map <- openmap(c(43.46886761482925,119.94873046875),
 #'		c(33.22949814144951,133.9892578125),
@@ -132,25 +132,18 @@ plot.osmtile <- function(x, y=NULL, add=TRUE, raster=TRUE, ...){
 #'		c(33.22949814144951,133.9892578125),
 #'		minNumTiles=4)
 #'autoplot(map)
-#' 
+#'
 #' }
-openmap <- function(upperLeft,lowerRight,zoom=NULL,type=c("osm","osm-bw","maptoolkit-topo",
-				"waze","bing","stamen-toner","stamen-terrain"
-						,"stamen-watercolor","osm-german","osm-wanderreitkarte","mapbox",
-						"esri","esri-topo","nps","apple-iphoto","skobbler",
-						"hillshade","opencyclemap","osm-transport","osm-public-transport",
-						"osm-bbike","osm-bbike-german"),
-		minNumTiles=9L, mergeTiles=TRUE){
-	type <- type[1]
-	if(substring(type, 1, 4) != "http" && !(type %in% c("osm","osm-bw","maptoolkit-topo",
-				"waze","bing","stamen-toner","stamen-terrain"
-						,"stamen-watercolor","osm-german","osm-wanderreitkarte","mapbox",
-						"esri","esri-topo","nps","apple-iphoto","skobbler",
-						"hillshade","opencyclemap","osm-transport","osm-public-transport",
-						"osm-bbike","osm-bbike-german"))){
-		stop("unknown map type")
-		
-	}
+openmap <- function(upperLeft,lowerRight,zoom=NULL,
+                    type=c("osm","osm-bw","maptoolkit-topo","waze","bing",
+                           "stamen-toner","stamen-terrain","stamen-watercolor",
+                           "osm-german","osm-wanderreitkarte","mapbox",
+                           "esri","esri-topo","nps","apple-iphoto","skobbler",
+                           "hillshade","opencyclemap","osm-transport",
+                           "osm-public-transport","osm-bbike","osm-bbike-german"),
+                    minNumTiles=9L, mergeTiles=TRUE){
+  type = if (substring(type, 1L, 4L) == 'http') type else match.arg(type)
+
 	.tryJava()
 	autoZoom <- is.null(zoom)
 	if(autoZoom)
@@ -159,12 +152,12 @@ openmap <- function(upperLeft,lowerRight,zoom=NULL,type=c("osm","osm-bw","maptoo
 		zoom <- as.integer(zoom)
 	ts <- new(J("org.openstreetmap.gui.jmapviewer.tilesources.BingAerialTileSource"))
 	for(i in 1:18){
-		minY <- as.integer(floor(ts$latToTileY(upperLeft[1],zoom)))
-		maxY <- as.integer(floor(ts$latToTileY(lowerRight[1],zoom)))
-		
+		minY <- as.integer(floor(ts$latToTileY(upperLeft[1L],zoom)))
+		maxY <- as.integer(floor(ts$latToTileY(lowerRight[1L],zoom)))
+
 		nX <- as.integer(round(ts$lonToTileX(180,zoom)))
-		minX <- as.integer(floor(ts$lonToTileX(upperLeft[2],zoom)))
-		maxX <- as.integer(floor(ts$lonToTileX(lowerRight[2],zoom)))
+		minX <- as.integer(floor(ts$lonToTileX(upperLeft[2L],zoom)))
+		maxX <- as.integer(floor(ts$lonToTileX(lowerRight[2L],zoom)))
 		if( minX > maxX)
 			maxX <- maxX + nX
 		ntiles <- abs((maxX-minX+1)*(maxY-minY+1))
@@ -179,17 +172,18 @@ openmap <- function(upperLeft,lowerRight,zoom=NULL,type=c("osm","osm-bw","maptoo
 	for( x in minX:maxX){
 		for(y in minY:maxY){
 			tile <- osmtile(x %% nX,y,zoom,type)
-			map$tiles[[length(map$tiles)+1]] <- tile
+			map$tiles[[length(map$tiles)+1L]] <- tile
 		}
 	}
-	map$bbox <- list(p1=projectMercator(upperLeft[1],upperLeft[2]),p2=projectMercator(lowerRight[1],lowerRight[2]))
+	map$bbox <- list(p1=projectMercator(upperLeft[1L],upperLeft[2L]),
+	                 p2=projectMercator(lowerRight[1L],lowerRight[2L]))
 	map$bbox <- list(p1=c(
-						x=min(map$bbox$p1[1],map$bbox$p2[1]),
-						y=max(map$bbox$p1[2],map$bbox$p2[2])
+						x=min(map$bbox$p1[1L],map$bbox$p2[1L]),
+						y=max(map$bbox$p1[2L],map$bbox$p2[2L])
 					),
 					p2=c(
-						x=max(map$bbox$p1[1],map$bbox$p2[1]),
-						y=min(map$bbox$p1[2],map$bbox$p2[2])
+						x=max(map$bbox$p1[1L],map$bbox$p2[1L]),
+						y=min(map$bbox$p1[2L],map$bbox$p2[2L])
 					)
 	)
 	class(map) <- "OpenStreetMap"
@@ -239,14 +233,14 @@ openmap <- function(upperLeft,lowerRight,zoom=NULL,type=c("osm","osm-bw","maptoo
 #'		southwest <- openmap(c(lat[1],lon[1]),c(lat[2],lon[2]),5,'osm')
 #'		data(california.tract10)
 #'		cali <- spTransform(california.tract10,osm())
-#'		
+#'
 #'		plot(southwest)
 #'		plot(cali,add=TRUE)
 #'	}
 #'}
 #'
 #'#
-#'#	The same plot using apple's maps and long-lat coordinates, 
+#'#	The same plot using apple's maps and long-lat coordinates,
 #'#   transforming the raster map.
 #'#
 #'if(require(UScensus2010)){
@@ -286,11 +280,11 @@ plot.OpenStreetMap <- function(x,y=NULL,add=FALSE,removeMargin=TRUE, ...){
 #' @param ... unused
 setMethod("raster","osmtile",function(x, ...){
 	rgbCol <- col2rgb(x$colorData)
-	
+
 	red <- matrix(rgbCol[1,],nrow=x$xres,byrow=TRUE)
 	green <- matrix(rgbCol[2,],nrow=x$xres,byrow=TRUE)
 	blue <- matrix(rgbCol[3,],nrow=x$xres,byrow=TRUE)
-	
+
 	xmn <- x$bbox$p1[1]
 	xmx <- x$bbox$p2[1]
 	ymn <- x$bbox$p2[2]
@@ -299,7 +293,7 @@ setMethod("raster","osmtile",function(x, ...){
 	ras <- stack(raster(red,xmn=xmn,xmx=xmx,ymn=ymn,ymx=ymx),
 			raster(green,xmn=xmn,xmx=xmx,ymn=ymn,ymx=ymx),
 			raster(blue,xmn=xmn,xmx=xmx,ymn=ymn,ymx=ymx))
-	projection(ras) <- x$projection	
+	projection(ras) <- x$projection
 	ras
 }
 )
@@ -319,13 +313,13 @@ setMethod("raster","OpenStreetMap",function(x, ...){
 	if (tiles > 1) {
 		rasterImg <- list()
 		for (i in 1:length(x$tiles)) {
-			rasterImg[[i]] <- raster(x$tiles[[i]]) 
+			rasterImg[[i]] <- raster(x$tiles[[i]])
 		}
 		# single calls to merge, and overlap=F for efficiency.
 		rasterImg$overlap <- FALSE
 		rasterImg <- do.call(raster::merge, rasterImg)
 	} else {
-		rasterImg <- raster(x$tiles[[1]]) 
+		rasterImg <- raster(x$tiles[[1]])
 	}
 	ext <- extent(x$bbox$p1[1],x$bbox$p2[1],x$bbox$p2[2],x$bbox$p1[2])
 	crop(rasterImg,ext)
@@ -373,10 +367,10 @@ setMethod("raster","OpenStreetMap",function(x, ...){
 openproj <- function(x,projection = "+proj=longlat",...){
 	if(!is.character(projection))
 		projection <- projection@projargs
-	
+
 	rasterImg <- raster(x)
 	ras2 <- projectRaster(rasterImg,crs=projection,...)
-	
+
 	vals <- values(ras2)
 	vals <- pmin(pmax(vals,0L),255L)
 	flag <- apply(vals,1,function(a)any(!is.finite(a)))
@@ -384,7 +378,7 @@ openproj <- function(x,projection = "+proj=longlat",...){
 	vals1[!is.finite(vals)] <- 0L
 	colors <- ifelse(flag,NA,rgb(vals1[,1],vals1[,2],vals1[,3],maxColorValue=255L))
 	ext <- extent(ras2)
-	
+
 	result <- list()
 	result$colorData <- colors
 	result$bbox <- list(p1 = c(ext@xmin,ext@ymax), p2 = c(ext@xmax,ext@ymin))
@@ -392,7 +386,7 @@ openproj <- function(x,projection = "+proj=longlat",...){
 	result$xres <- dim(ras2)[1]
 	result$yres <- dim(ras2)[2]
 	class(result) <- "osmtile"
-	
+
 	osm <- list(tiles=list(result))
 	osm$bbox <- result$bbox
 	attr(osm,"zoom") <- attr(x,"zoom")
@@ -410,7 +404,7 @@ openproj <- function(x,projection = "+proj=longlat",...){
 	vals1 <- vals
 	vals1[!is.finite(vals)] <- 0L
 	colors <- ifelse(flag,NA,rgb(vals1[,1],vals1[,2],vals1[,3],maxColorValue=255L))
-	
+
 	result <- list()
 	result$colorData <- colors
 	result$bbox <- list(p1 = c(ext@xmin,ext@ymax), p2 = c(ext@xmax,ext@ymin))
@@ -418,7 +412,7 @@ openproj <- function(x,projection = "+proj=longlat",...){
 	result$xres <- dim(ras2)[1]
 	result$yres <- dim(ras2)[2]
 	class(result) <- "osmtile"
-	
+
 	osm <- list(tiles=list(result))
 	osm$bbox <- result$bbox
 	attr(osm,"zoom") <- attr(x,"zoom")
@@ -436,7 +430,7 @@ print.OpenStreetMap <- function(x,...){
 }
 
 #' Launches a Java helper GUI.
-#' @details note for Mac OS X users: 
+#' @details note for Mac OS X users:
 #' On the mac this can only be run from a java console such as JGR.
 launchMapHelper <- function(){
 	.tryJava()
@@ -453,7 +447,7 @@ launchMapHelper <- function(){
 #}
 
 #' Returns a table with relevant source and attribution info for each map type
-#' 
+#'
 getMapInfo <- function(){
 	J("edu.cens.spatial.RTileController")$getInstance("osm")
 	s <- J("edu.cens.spatial.RTileController")$sources
