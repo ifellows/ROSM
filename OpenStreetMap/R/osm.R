@@ -161,24 +161,27 @@ openmap <- function(upperLeft,lowerRight,zoom=NULL,type=c("osm","osm-bw","maptoo
 	}
 	.tryJava()
 	autoZoom <- is.null(zoom)
-	zoom <- if(autoZoom) 0L else as.integer(zoom)
+	zoom <- if(autoZoom) 1L else as.integer(zoom)
 
 	ts <- new(J("org.openstreetmap.gui.jmapviewer.tilesources.BingAerialTileSource"))
-	if (autoZoom) {
-		for(i in 1:18){
-			zoom <- zoom + 1L
-			minY <- as.integer(floor(ts$latToTileY(upperLeft[1],zoom)))
-			maxY <- as.integer(floor(ts$latToTileY(lowerRight[1],zoom)))
+	for(i in 1:18){
+		minY <- as.integer(floor(ts$latToTileY(upperLeft[1],zoom)))
+		maxY <- as.integer(floor(ts$latToTileY(lowerRight[1],zoom)))
 
-			nX <- as.integer(round(ts$lonToTileX(180,zoom)))
-			minX <- as.integer(floor(ts$lonToTileX(upperLeft[2],zoom)))
-			maxX <- as.integer(floor(ts$lonToTileX(lowerRight[2],zoom)))
-			if( minX > maxX)
-				maxX <- maxX + nX
-			ntiles <- abs((maxX-minX+1)*(maxY-minY+1))
-			if(ntiles>=minNumTiles)
-				break
-		}
+		nX <- as.integer(round(ts$lonToTileX(180,zoom)))
+		minX <- as.integer(floor(ts$lonToTileX(upperLeft[2],zoom)))
+		maxX <- as.integer(floor(ts$lonToTileX(lowerRight[2],zoom)))
+		if( minX > maxX)
+			maxX <- maxX + nX
+		if (!autoZoom)
+			break
+
+		ntiles <- abs((maxX-minX+1)*(maxY-minY+1))
+		# #3 -- don't increment if we've reached 18 & not minNumTiles
+		if(ntiles>=minNumTiles || i == 18L)
+			break
+		
+		zoom <- zoom + 1L
 	}
 	map <- list(tiles=list())
 	for( x in minX:maxX){
