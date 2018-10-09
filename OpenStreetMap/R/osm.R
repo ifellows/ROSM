@@ -142,6 +142,7 @@ plot.osmtile <- function(x, y=NULL, add=TRUE, raster=TRUE, ...){
 #'autoplot(map)
 #'
 #' }
+<<<<<<< HEAD
 openmap <- function(upperLeft,lowerRight,zoom=NULL,type=c("osm","osm-bw","maptoolkit-topo",
 				"waze","bing","stamen-toner","stamen-terrain"
 						,"stamen-watercolor","osm-german","osm-wanderreitkarte","mapbox",
@@ -159,18 +160,35 @@ openmap <- function(upperLeft,lowerRight,zoom=NULL,type=c("osm","osm-bw","maptoo
 		stop("unknown map type")
 
 	}
+=======
+openmap <- function(upperLeft,lowerRight,zoom=NULL,
+                    type=c("osm","osm-bw","maptoolkit-topo","waze","bing",
+                           "stamen-toner","stamen-terrain","stamen-watercolor",
+                           "osm-german","osm-wanderreitkarte","mapbox",
+                           "esri","esri-topo","nps","apple-iphoto","skobbler",
+                           "hillshade","opencyclemap","osm-transport",
+                           "osm-public-transport","osm-bbike","osm-bbike-german"),
+                    minNumTiles=9L, mergeTiles=TRUE){
+  type = if (substring(type, 1L, 4L) == 'http') type else match.arg(type)
+
+>>>>>>> a1f8596... Some tidying of code in openmap()
 	.tryJava()
 	autoZoom <- is.null(zoom)
 	zoom <- if(autoZoom) 1L else as.integer(zoom)
 
 	ts <- new(J("org.openstreetmap.gui.jmapviewer.tilesources.BingAerialTileSource"))
 	for(i in 1:18){
+<<<<<<< HEAD
 		minY <- as.integer(floor(ts$latToTileY(upperLeft[1],zoom)))
 		maxY <- as.integer(floor(ts$latToTileY(lowerRight[1],zoom)))
+=======
+		minY <- as.integer(floor(ts$latToTileY(upperLeft[1L],zoom)))
+		maxY <- as.integer(floor(ts$latToTileY(lowerRight[1L],zoom)))
+>>>>>>> a1f8596... Some tidying of code in openmap()
 
 		nX <- as.integer(round(ts$lonToTileX(180,zoom)))
-		minX <- as.integer(floor(ts$lonToTileX(upperLeft[2],zoom)))
-		maxX <- as.integer(floor(ts$lonToTileX(lowerRight[2],zoom)))
+		minX <- as.integer(floor(ts$lonToTileX(upperLeft[2L],zoom)))
+		maxX <- as.integer(floor(ts$lonToTileX(lowerRight[2L],zoom)))
 		if( minX > maxX)
 			maxX <- maxX + nX
 		if (!autoZoom)
@@ -180,24 +198,25 @@ openmap <- function(upperLeft,lowerRight,zoom=NULL,type=c("osm","osm-bw","maptoo
 		# #3 -- don't increment if we've reached 18 & not minNumTiles
 		if(ntiles>=minNumTiles || i == 18L)
 			break
-		
+
 		zoom <- zoom + 1L
 	}
 	map <- list(tiles=list())
 	for( x in minX:maxX){
 		for(y in minY:maxY){
 			tile <- osmtile(x %% nX,y,zoom,type)
-			map$tiles[[length(map$tiles)+1]] <- tile
+			map$tiles[[length(map$tiles)+1L]] <- tile
 		}
 	}
-	map$bbox <- list(p1=projectMercator(upperLeft[1],upperLeft[2]),p2=projectMercator(lowerRight[1],lowerRight[2]))
+	map$bbox <- list(p1=projectMercator(upperLeft[1L],upperLeft[2L]),
+	                 p2=projectMercator(lowerRight[1L],lowerRight[2L]))
 	map$bbox <- list(p1=c(
-						x=min(map$bbox$p1[1],map$bbox$p2[1]),
-						y=max(map$bbox$p1[2],map$bbox$p2[2])
+						x=min(map$bbox$p1[1L],map$bbox$p2[1L]),
+						y=max(map$bbox$p1[2L],map$bbox$p2[2L])
 					),
 					p2=c(
-						x=max(map$bbox$p1[1],map$bbox$p2[1]),
-						y=min(map$bbox$p1[2],map$bbox$p2[2])
+						x=max(map$bbox$p1[1L],map$bbox$p2[1L]),
+						y=min(map$bbox$p1[2L],map$bbox$p2[2L])
 					)
 	)
 	class(map) <- "OpenStreetMap"

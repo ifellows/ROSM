@@ -2,7 +2,7 @@ Package: OpenStreetMap
 Maintainer: Ian Fellows <ian@fellstat.com>
 License: GPL-2 | file LICENCE
 Title: Access to Open Street Map Raster Images
-Author: Ian Fellows, using the JMapViewer library by Jan Peter Stotz
+Author: Ian Fellows, Michael Chirico, using the JMapViewer library by Jan Peter Stotz
 Description: Accesses high resolution raster maps using the OpenStreetMap
     protocol. Dozens of road, satellite, and topographic map servers are directly
     supported, including Apple, Mapnik, Bing, and stamen. Additionally raster maps
@@ -11,8 +11,8 @@ Description: Accesses high resolution raster maps using the OpenStreetMap
     with the OpenStreetMap.org mapping project.
 SystemRequirements: Java (>= 1.5), JRI
 Version: 0.3.3
-URL: http://www.fellstat.com http://blog.fellstat.com/?cat=15
-Date: 2016-09-09
+URL: https://github.com/ifellows/ROSM http://www.fellstat.com http://blog.fellstat.com/?cat=15
+Date: 2018-10-03
 Depends:
     methods,
     R (>= 2.10.0)
