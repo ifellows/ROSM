@@ -95,6 +95,14 @@ plot.osmtile <- function(x, y=NULL, add=TRUE, raster=TRUE, ...){
 #'
 #' http://api.someplace.com/.../{z}/{x}/{y}
 #'
+#' When \code{zoom} is \code{NULL}, it is determined by recursively increasing
+#' the zoom from 1 and checking how many tiles would be produced; the zoom
+#' produced is the first zoom when at least \code{minNumTiles} are depicted.
+#' This process terminates at \code{zoom = 18L} regardless of whether
+#' \code{minNumTiles} has been reached.
+#'
+#' See here for details on setting \code{zoom} manually: https://wiki.openstreetmap.org/wiki/Zoom_levels
+#'
 #' @examples \dontrun{
 #' #show some of the maps available
 #' nm <- c("osm", "maptoolkit-topo", "bing", "stamen-toner",
@@ -146,10 +154,8 @@ openmap <- function(upperLeft,lowerRight,zoom=NULL,
 
 	.tryJava()
 	autoZoom <- is.null(zoom)
-	if(autoZoom)
-		zoom <- 1L
-	else
-		zoom <- as.integer(zoom)
+	zoom <- if(autoZoom) 1L else as.integer(zoom)
+
 	ts <- new(J("org.openstreetmap.gui.jmapviewer.tilesources.BingAerialTileSource"))
 	for(i in 1:18){
 		minY <- as.integer(floor(ts$latToTileY(upperLeft[1L],zoom)))
@@ -160,13 +166,15 @@ openmap <- function(upperLeft,lowerRight,zoom=NULL,
 		maxX <- as.integer(floor(ts$lonToTileX(lowerRight[2L],zoom)))
 		if( minX > maxX)
 			maxX <- maxX + nX
+		if (!autoZoom)
+			break
+
 		ntiles <- abs((maxX-minX+1)*(maxY-minY+1))
-		if(!autoZoom)
+		# #3 -- don't increment if we've reached 18 & not minNumTiles
+		if(ntiles>=minNumTiles || i == 18L)
 			break
-		if(ntiles>=minNumTiles)
-			break
-		else
-			zoom <- as.integer(zoom + 1L)
+
+		zoom <- zoom + 1L
 	}
 	map <- list(tiles=list())
 	for( x in minX:maxX){
