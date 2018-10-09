@@ -142,25 +142,6 @@ plot.osmtile <- function(x, y=NULL, add=TRUE, raster=TRUE, ...){
 #'autoplot(map)
 #'
 #' }
-<<<<<<< HEAD
-openmap <- function(upperLeft,lowerRight,zoom=NULL,type=c("osm","osm-bw","maptoolkit-topo",
-				"waze","bing","stamen-toner","stamen-terrain"
-						,"stamen-watercolor","osm-german","osm-wanderreitkarte","mapbox",
-						"esri","esri-topo","nps","apple-iphoto","skobbler",
-						"hillshade","opencyclemap","osm-transport","osm-public-transport",
-						"osm-bbike","osm-bbike-german"),
-		minNumTiles=9L, mergeTiles=TRUE){
-	type <- type[1]
-	if(substring(type, 1, 4) != "http" && !(type %in% c("osm","osm-bw","maptoolkit-topo",
-				"waze","bing","stamen-toner","stamen-terrain"
-						,"stamen-watercolor","osm-german","osm-wanderreitkarte","mapbox",
-						"esri","esri-topo","nps","apple-iphoto","skobbler",
-						"hillshade","opencyclemap","osm-transport","osm-public-transport",
-						"osm-bbike","osm-bbike-german"))){
-		stop("unknown map type")
-
-	}
-=======
 openmap <- function(upperLeft,lowerRight,zoom=NULL,
 		type=c("osm","osm-bw","maptoolkit-topo","waze","bing",
 			"stamen-toner","stamen-terrain","stamen-watercolor",
@@ -171,20 +152,14 @@ openmap <- function(upperLeft,lowerRight,zoom=NULL,
 		minNumTiles=9L, mergeTiles=TRUE){
 	type <- if (substring(type, 1L, 4L) == 'http') type else match.arg(type)
 
->>>>>>> a1f8596... Some tidying of code in openmap()
 	.tryJava()
 	autoZoom <- is.null(zoom)
 	zoom <- if(autoZoom) 1L else as.integer(zoom)
 
 	ts <- new(J("org.openstreetmap.gui.jmapviewer.tilesources.BingAerialTileSource"))
 	for(i in 1:18){
-<<<<<<< HEAD
-		minY <- as.integer(floor(ts$latToTileY(upperLeft[1],zoom)))
-		maxY <- as.integer(floor(ts$latToTileY(lowerRight[1],zoom)))
-=======
 		minY <- as.integer(floor(ts$latToTileY(upperLeft[1L],zoom)))
 		maxY <- as.integer(floor(ts$latToTileY(lowerRight[1L],zoom)))
->>>>>>> a1f8596... Some tidying of code in openmap()
 
 		nX <- as.integer(round(ts$lonToTileX(180,zoom)))
 		minX <- as.integer(floor(ts$lonToTileX(upperLeft[2L],zoom)))
