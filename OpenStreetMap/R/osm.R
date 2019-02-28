@@ -158,8 +158,12 @@ openmap <- function(upperLeft,lowerRight,zoom=NULL,
 		nX <- as.integer(round(ts$lonToTileX(180,zoom)))
 		minX <- as.integer(floor(ts$lonToTileX(upperLeft[2L],zoom)))
 		maxX <- as.integer(floor(ts$lonToTileX(lowerRight[2L],zoom)))
-		if( minX > maxX)
-			maxX <- maxX + nX
+		if( minX > maxX){
+		  tmp <- maxX
+		  maxX <- minX
+		  minX <- tmp
+			#maxX <- maxX + nX
+		}
 		ntiles <- abs((maxX-minX+1)*(maxY-minY+1))
 		if(!autoZoom)
 			break

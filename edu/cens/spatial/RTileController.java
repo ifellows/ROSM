@@ -80,7 +80,7 @@ public class RTileController extends TileController{
 			
 		});
 		if(map.size() > 4)
-			map.size();
+			map.clear();
 		map.put(type, cont);
 		return cont;
 		
