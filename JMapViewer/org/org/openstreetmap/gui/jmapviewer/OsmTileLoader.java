@@ -24,7 +24,7 @@ public class OsmTileLoader implements TileLoader {
      * Holds the used user agent used for HTTP requests. If this field is
      * <code>null</code>, the default Java user agent is used.
      */
-    public static String USER_AGENT = null;
+    public static String USER_AGENT = "ropenstreetmapclient/1.0 (+https://github.com/ifellows/ROSM)";
     public static String ACCEPT = "text/html, image/png, image/jpeg, image/gif, */*";
 
     protected TileLoaderListener listener;
