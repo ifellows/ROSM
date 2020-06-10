@@ -83,6 +83,7 @@ plot.osmtile <- function(x, y=NULL, add=TRUE, raster=TRUE, ...){
 #' Get a map based on lat long coordinates
 #' @param upperLeft the upper left lat and long
 #' @param lowerRight the lower right lat and long
+#' @param bbox A matrix, like from \code{\link[sp]{bbox}}
 #' @param zoom the zoom level. If null, it is determined automatically
 #' @param type the tile server from which to get the map, or the url pattern.
 #' @param minNumTiles If zoom is null, zoom will be chosen such that
@@ -134,7 +135,7 @@ plot.osmtile <- function(x, y=NULL, add=TRUE, raster=TRUE, ...){
 #'autoplot(map)
 #'
 #' }
-openmap <- function(upperLeft,lowerRight,zoom=NULL,
+openmap <- function(upperLeft,lowerRight,bbox,zoom=NULL,
 		type=c("osm","osm-bw","maptoolkit-topo","waze","bing",
 			"stamen-toner","stamen-terrain","stamen-watercolor",
 			"osm-german","osm-wanderreitkarte","mapbox",
@@ -144,6 +145,14 @@ openmap <- function(upperLeft,lowerRight,zoom=NULL,
 		minNumTiles=9L, mergeTiles=TRUE){
 	type <- if (substring(type, 1L, 4L) == 'http') type else match.arg(type)
 
+	if (!missing(bbox) && !missing(upperLeft) && !missing(lowerRight)) {
+		stop("Please supply either 'upperLeft' and 'lowerRight' or 'bbox', not both.")
+	} else {
+		if (!missing(bbox)) {
+			upperLeft = bbox[c(4L, 1L)]
+			lowerRight = bbox[2:3]
+		}
+	}
 	.tryJava()
 	autoZoom <- is.null(zoom)
 	if(autoZoom)
