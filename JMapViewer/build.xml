@@ -1,7 +1,7 @@
 <project default="compile">
     <target name="compile">
         <mkdir dir="bin"/>
-        <javac target="1.5" source="1.5" srcdir="org/org" destdir="bin"/>
+        <javac target="1.8" source="1.8" srcdir="org/org" destdir="bin"/>
     </target>
     <target name="jar">
         <mkdir dir="build/jar"/>

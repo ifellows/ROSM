@@ -32,7 +32,7 @@ public class OsmTileSource {
     
     public static class MapnikGerman extends AbstractOsmTileSource {
         public MapnikGerman() {
-            super("osm-german", "http://tile.openstreetmap.de/tiles/osmde");
+            super("osm-german", "https://tile.openstreetmap.de/");
         }
 
         public TileUpdate getTileUpdate() {
@@ -301,7 +301,7 @@ public class OsmTileSource {
     
     public static class Esri extends AbstractOsmTileSource {
         public Esri() {
-            super("esri", "http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile");
+            super("esri", "https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile");
         }
         
         public String getTileType() {
@@ -335,7 +335,7 @@ public class OsmTileSource {
     
     public static class EsriTopo extends AbstractOsmTileSource {
         public EsriTopo() {
-            super("esri-topo", "http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile");
+            super("esri-topo", "https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile");
         }
         
         public String getTileType() {

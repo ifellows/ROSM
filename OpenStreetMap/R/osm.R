@@ -1,10 +1,12 @@
 
 #' Open street map (and google) mercator projection
+#' @export
 osm <- function(){
 	CRS("+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs")
 }
 
 #' Latitude Longitude projection
+#' @export
 longlat <- function(){
 	CRS("+proj=longlat +datum=WGS84")
 }
@@ -13,6 +15,7 @@ longlat <- function(){
 #' @param lat a vector of latitudes
 #' @param long a vector of longitudes
 #' @param drop drop to lowest dimension
+#' @export
 projectMercator <- function(lat,long,drop=TRUE){
 	df <- data.frame(long=long,lat=lat)
 	coordinates(df) <- ~long+lat
@@ -32,6 +35,7 @@ projectMercator <- function(lat,long,drop=TRUE){
 #' @param zoom zoom level
 #' @param type the map type (see getMapInfo)
 #' @return a tile
+#' @export
 osmtile <- function(x,y,zoom,type="osm"){
 	.tryJava()
 	x <- as.double(x)
@@ -61,6 +65,7 @@ osmtile <- function(x,y,zoom,type="osm"){
 #' @param raster use raster image
 #' @param ... additional parameters to image or rasterImage
 #' @method plot osmtile
+#' @export
 plot.osmtile <- function(x, y=NULL, add=TRUE, raster=TRUE, ...){
 	xres <- x$xres
 	yres <- x$yres
@@ -93,14 +98,13 @@ plot.osmtile <- function(x, y=NULL, add=TRUE, raster=TRUE, ...){
 #' Type may be the url of a custom tile server (http://wiki.osgeo.org/wiki/Tile_Map_Service_Specification).
 #' should include {z}, {y}, and {x} specifying where the zoom, xtile and ytile location should be substituted. e.g.
 #'
-#' http://api.someplace.com/.../{z}/{x}/{y}
+#' http://api.someplace.com/.../{z}/{x}/{y}.png
 #'
 #' @examples \dontrun{
 #' #show some of the maps available
-#' nm <- c("osm", "maptoolkit-topo", "bing", "stamen-toner",
-#' 		"stamen-watercolor", "esri", "esri-topo",
-#' 		"nps", "apple-iphoto", "skobbler")
-#' par(mfrow=c(3,4))
+#' nm <- c("osm","bing","osm-german","esri","esri-topo","esri-physical","esri-shaded",
+#'   "esri-imagery","esri-terrain","esri-natgeo","nps","apple-iphoto")
+#' par(mfrow=c(3,4), mar=c(0,0,0,0))
 #' #Korea
 #' for(i in 1:length(nm)){
 #' 	map <- openmap(c(43.46886761482925,119.94873046875),
@@ -134,15 +138,28 @@ plot.osmtile <- function(x, y=NULL, add=TRUE, raster=TRUE, ...){
 #'autoplot(map)
 #'
 #' }
+#' @export
 openmap <- function(upperLeft,lowerRight,zoom=NULL,
-		type=c("osm","osm-bw","maptoolkit-topo","waze","bing",
-			"stamen-toner","stamen-terrain","stamen-watercolor",
-			"osm-german","osm-wanderreitkarte","mapbox",
-			"esri","esri-topo","nps","apple-iphoto","skobbler",
-			"hillshade","opencyclemap","osm-transport",
-			"osm-public-transport","osm-bbike","osm-bbike-german"),
+		type=c("osm","bing",
+			"osm-german",
+			"esri","esri-topo","esri-physical","esri-shaded","esri-imagery","esri-terrain","esri-natgeo",
+			"nps","apple-iphoto", "osm-public-transport"),
 		minNumTiles=9L, mergeTiles=TRUE){
-	type <- if (substring(type, 1L, 4L) == 'http') type else match.arg(type)
+  
+	type <- type[1]
+	type <- switch(
+	  type,
+	  "osm" = "http://tile.openstreetmap.org/{z}/{x}/{y}.png",
+	  "esri" = "https://server.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}.png",
+	  "esri-topo" = "https://server.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}.png",
+	  "esri-physical" = "https://server.arcgisonline.com/arcgis/rest/services/World_Physical_Map/MapServer/tile/{z}/{y}/{x}.png",
+	  "esri-shaded" = "https://server.arcgisonline.com/arcgis/rest/services/World_Shaded_Relief/MapServer/tile/{z}/{y}/{x}.png",
+	  "esri-imagery" = "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}.png",
+	  "esri-terrain" = "https://server.arcgisonline.com/arcgis/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}.png",
+	  "esri-natgeo" = "https://server.arcgisonline.com/arcgis/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}.png",
+	  "nps" = "https://services.arcgisonline.com/ArcGIS/rest/services/World_Physical_Map/MapServer/tile/{z}/{y}/{x}.jpg",
+	  type
+	)
 
 	.tryJava()
 	autoZoom <- is.null(zoom)
@@ -262,6 +279,7 @@ openmap <- function(upperLeft,lowerRight,zoom=NULL,
 #'}
 
 #' }
+#' @export
 plot.OpenStreetMap <- function(x,y=NULL,add=FALSE,removeMargin=TRUE, ...){
 	mar <- par("mar")
 	if(add==FALSE){
@@ -282,6 +300,7 @@ plot.OpenStreetMap <- function(x,y=NULL,add=FALSE,removeMargin=TRUE, ...){
 #' Create a RasterLayer from a tile
 #' @param x an osmtile
 #' @param ... unused
+#' @export
 setMethod("raster","osmtile",function(x, ...){
 	rgbCol <- col2rgb(x$colorData)
 
@@ -312,6 +331,7 @@ setMethod("raster","osmtile",function(x, ...){
 #' ras <- raster(longBeachHarbor)
 #' plotRGB(ras)
 #' }
+#' @export
 setMethod("raster","OpenStreetMap",function(x, ...){
 	tiles <- length(x$tiles)
 	if (tiles > 1) {
@@ -368,6 +388,7 @@ setMethod("raster","OpenStreetMap",function(x, ...){
 #'plot(st_llc,add=T,col=heat.colors(48,.4)[slot(st_llc,"data")[["ORDER_ADM"]]])
 #'
 #' }
+#' @export
 openproj <- function(x,projection = "+proj=longlat",...){
 	if(!is.character(projection))
 		projection <- projection@projargs
@@ -429,6 +450,7 @@ openproj <- function(x,projection = "+proj=longlat",...){
 #' @param x the OpenStreetMap
 #' @param ... ignored
 #' @method print OpenStreetMap
+#' @export
 print.OpenStreetMap <- function(x,...){
 	print(str(x))
 }
@@ -436,6 +458,7 @@ print.OpenStreetMap <- function(x,...){
 #' Launches a Java helper GUI.
 #' @details note for Mac OS X users:
 #' On the mac this can only be run from a java console such as JGR.
+#' @export
 launchMapHelper <- function(){
 	.tryJava()
 	new(J("org.openstreetmap.gui.jmapviewer.Demo"))$setVisible(TRUE)
@@ -452,6 +475,7 @@ launchMapHelper <- function(){
 
 #' Returns a table with relevant source and attribution info for each map type
 #'
+#' @export
 getMapInfo <- function(){
 	J("edu.cens.spatial.RTileController")$getInstance("osm")
 	s <- J("edu.cens.spatial.RTileController")$sources

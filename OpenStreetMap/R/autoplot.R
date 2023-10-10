@@ -1,10 +1,14 @@
-
+#autoplot <- function (object, ...) 
+#{
+#  UseMethod("autoplot")
+#}
 
 #' Plots an open street map tile using ggplot2
 #' @param data an osmtile
 #' @param plot if false only the annotation_raster is returned
 #' @param ... not used
 #' @method autoplot osmtile
+#' @export
 autoplot.osmtile <- function(data,plot=FALSE,...){
 	a <- b <- NULL
 	x <- data
@@ -36,7 +40,7 @@ autoplot.osmtile <- function(data,plot=FALSE,...){
 #' require(ggplot2)
 #' 
 #' mp <- openmap(c(53.38332836757155,-130.517578125),
-#' 		c(15.792253570362446,-67.939453125),4,'stamen-watercolor')
+#' 		c(15.792253570362446,-67.939453125),4)
 #' mp_bing <- openmap(c(53.38332836757155,-130.517578125),
 #' 		c(15.792253570362446,-67.939453125),4,'bing')
 #' states_map <- map_data("state")
@@ -54,6 +58,7 @@ autoplot.osmtile <- function(data,plot=FALSE,...){
 #' print(p)
 #' }
 #' @method autoplot OpenStreetMap
+#' @export
 autoplot.OpenStreetMap <- function(data, expand=TRUE, ...){
 	x <- y <- NULL
 	x <- data

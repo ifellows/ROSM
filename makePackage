@@ -3,7 +3,7 @@ ant
 ant jar
 mv JMapViewer.jar ../OpenStreetMap/inst/java/JMapViewer.jar
 cd ..
-javac -target 1.5 -source 1.5 -d . -classpath OpenStreetMap/inst/java/JMapViewer.jar edu/cens/spatial/RTileController.java
+javac -target 1.8 -source 1.8 -d . -classpath OpenStreetMap/inst/java/JMapViewer.jar edu/cens/spatial/RTileController.java
 jar fc RTileController.jar edu/cens/spatial/*.class
 mv RTileController.jar OpenStreetMap/inst/java/RTileController.jar
 cp -rf edu/cens/spatial/RTileController.java OpenStreetMap/java/

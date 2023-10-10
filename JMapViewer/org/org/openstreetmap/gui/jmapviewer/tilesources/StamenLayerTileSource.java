@@ -6,7 +6,7 @@ import org.openstreetmap.gui.jmapviewer.interfaces.TileSource.TileUpdate;
 public class StamenLayerTileSource extends AbstractOsmTileSource{
 	private String exten;
 	public StamenLayerTileSource(String layer,String ext){
-		super("stamen-" + layer,"http://tile.stamen.com/"+layer);
+		super("stamen-" + layer,"http://tiles.stadiamaps.com/tiles/stamen_"+layer);
 		this.exten=ext;
 	}
 	

@@ -10,12 +10,11 @@ Description: Accesses high resolution raster maps using the OpenStreetMap
     plotted using either base graphics, or ggplot2. This package is not affiliated
     with the OpenStreetMap.org mapping project.
 SystemRequirements: Java (>= 1.5), JRI
-Version: 0.3.4
+Version: 0.4.0
 URL: https://github.com/ifellows/ROSM http://www.fellstat.com http://blog.fellstat.com/?cat=15
-Date: 2018-10-03
 Depends:
     methods,
-    R (>= 2.10.0)
+    R (>= 4.2.2)
 Suggests:
     colorspace,
     maptools
@@ -24,7 +23,6 @@ Imports:
     ggplot2 (>= 0.9.0),
     rJava,
     raster,
-    rgdal,
     sp
 Collate:
     'OpenStreetMap-package.R'
