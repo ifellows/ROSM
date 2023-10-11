@@ -50,4 +50,3 @@ plot(st_llc,add=T,col=heat.colors(48,.4)[slot(st_llc,"data")[["ORDER_ADM"]]])
 
 }
 }
-

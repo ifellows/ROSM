@@ -4,8 +4,7 @@
 \alias{plot.OpenStreetMap}
 \title{Plot an OpenStreetMap object.}
 \usage{
-\method{plot}{OpenStreetMap}(x, y = NULL, add = FALSE,
-  removeMargin = TRUE, ...)
+\method{plot}{OpenStreetMap}(x, y = NULL, add = FALSE, removeMargin = TRUE, ...)
 }
 \arguments{
 \item{x}{the OpenStreetMap}
@@ -21,65 +20,3 @@
 \description{
 Plot an OpenStreetMap object.
 }
-\examples{
-\dontrun{
-#
-#	The following examples
-#	plot using native mercator coordinates,
-#	transforming the data where needed
-#
-library(sp)
-m <- c(25.7738889,-80.1938889)
-j <- c(58.3019444,-134.4197222)
-miami <- projectMercator(25.7738889,-80.1938889)
-jun <- projectMercator(58.3019444,-134.4197222)
-data(states)
-map <- openmap(j,m,4,type="stamen-terrain")
-plot(map,removeMargin=FALSE)
-plot(states,add=TRUE)
-
-data(LA_places)
-longBeachHarbor <- openmap(c(33.760525217369974,-118.22052955627441),
-	c(33.73290566922855,-118.17521095275879),14,'bing')
-coords <- coordinates(LA_places)
-x <- coords[,1]
-y <- coords[,2]
-txt <- slot(LA_places,"data")[,'NAME']
-plot(longBeachHarbor)
-points(x,y,col="red")
-text(x,y,txt,col="white",adj=0)
-
-if(require(UScensus2010)){
-#install with: install.tract("linux")
-if(require(UScensus2010tract)){
-	lat <- c(43.834526782236814,30.334953881988564)
-	lon <- c(-131.0888671875  ,-107.8857421875)
-	southwest <- openmap(c(lat[1],lon[1]),c(lat[2],lon[2]),5,'osm')
-	data(california.tract10)
-	cali <- spTransform(california.tract10,osm())
-	
-	plot(southwest)
-	plot(cali,add=TRUE)
-}
-}
-
-#
-#	The same plot using apple's maps and long-lat coordinates, 
-#   transforming the raster map.
-#
-if(require(UScensus2010)){
-#install with: install.tract("linux")
-if(require(UScensus2010tract)){
-	lat <- c(43.834526782236814,30.334953881988564)
-	lon <- c(-131.0888671875  ,-107.8857421875)
-	southwest <- openmap(c(lat[1],lon[1]),
-			c(lat[2],lon[2]),5,"apple-iphoto")
-	southwest_longlat <- openproj(southwest)
-	data(california.tract10)
-	plot(southwest_longlat)
-	plot(california.tract10,add=TRUE)
-}
-}
-}
-}
-

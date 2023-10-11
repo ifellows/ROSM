@@ -9,4 +9,3 @@ osm()
 \description{
 Open street map (and google) mercator projection
 }
-

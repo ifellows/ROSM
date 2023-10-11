@@ -21,4 +21,3 @@ a tile
 \description{
 Get an open street map tile.
 }
-

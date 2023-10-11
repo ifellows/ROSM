@@ -112,7 +112,7 @@ plot.osmtile <- function(x, y=NULL, add=TRUE, raster=TRUE, ...){
 #'			minNumTiles=3,type=nm[i])
 #'	plot(map)
 #'}
-#' # Some maps from custom urls
+#' # Some maps from custom urls (use your own API key)
 #' apiKey <- paste0("?access_token=",
 #'  "pk.eyJ1IjoidGhlZmVsbCIsImEiOiJjaXN1anNwODEwMWlrMnRvZHBhamRrZjlqIn0.Gf8qLSpZ6yo5yfQhEutFfQ")
 #' baseUrl <- "https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v9/tiles/256/{z}/{x}/{y}"
@@ -231,7 +231,7 @@ openmap <- function(upperLeft,lowerRight,zoom=NULL,
 #'miami <- projectMercator(25.7738889,-80.1938889)
 #'jun <- projectMercator(58.3019444,-134.4197222)
 #'data(states)
-#'map <- openmap(j,m,4,type="stamen-terrain")
+#'map <- openmap(j,m,4,type="esri-terrain")
 #'plot(map,removeMargin=FALSE)
 #'plot(states,add=TRUE)
 #'
@@ -246,36 +246,6 @@ openmap <- function(upperLeft,lowerRight,zoom=NULL,
 #'points(x,y,col="red")
 #'text(x,y,txt,col="white",adj=0)
 #'
-#'if(require(UScensus2010)){
-#'	#install with: install.tract("linux")
-#'	if(require(UScensus2010tract)){
-#'		lat <- c(43.834526782236814,30.334953881988564)
-#'		lon <- c(-131.0888671875  ,-107.8857421875)
-#'		southwest <- openmap(c(lat[1],lon[1]),c(lat[2],lon[2]),5,'osm')
-#'		data(california.tract10)
-#'		cali <- spTransform(california.tract10,osm())
-#'
-#'		plot(southwest)
-#'		plot(cali,add=TRUE)
-#'	}
-#'}
-#'
-#'#
-#'#	The same plot using apple's maps and long-lat coordinates,
-#'#   transforming the raster map.
-#'#
-#'if(require(UScensus2010)){
-#'	#install with: install.tract("linux")
-#'	if(require(UScensus2010tract)){
-#'		lat <- c(43.834526782236814,30.334953881988564)
-#'		lon <- c(-131.0888671875  ,-107.8857421875)
-#'		southwest <- openmap(c(lat[1],lon[1]),
-#'				c(lat[2],lon[2]),5,"apple-iphoto")
-#'		southwest_longlat <- openproj(southwest)
-#'		data(california.tract10)
-#'		plot(southwest_longlat)
-#'		plot(california.tract10,add=TRUE)
-#'	}
 #'}
 
 #' }

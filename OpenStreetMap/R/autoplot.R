@@ -3,15 +3,29 @@
 #  UseMethod("autoplot")
 #}
 
+#' @name autoplot
+#' @title Create a complete ggplot appropriate to a particular data type
+#' Rexported from ggplot2. `autoplot()` uses ggplot2 to draw a particular plot for an object of a
+#' particular class in a single command. This defines the S3 generic that
+#' other classes and packages can extend.
+#' 
+#' @param object An object (for example an OpenStreetMap object)
+#' @param ... Additional arguments
+#' @return a ggplot object
+#' 
+#' @seealso [autoplot.OpenStreetMap()]
+#' @export
+NULL
+
 #' Plots an open street map tile using ggplot2
-#' @param data an osmtile
+#' @param object an osmtile
 #' @param plot if false only the annotation_raster is returned
 #' @param ... not used
 #' @method autoplot osmtile
 #' @export
-autoplot.osmtile <- function(data,plot=FALSE,...){
+autoplot.osmtile <- function(object,plot=FALSE,...){
 	a <- b <- NULL
-	x <- data
+	x <- data <- object
 	p1 <- x$bbox$p1
 	p2 <- x$bbox$p2
 	yres <- x$yres
@@ -32,7 +46,7 @@ autoplot.osmtile <- function(data,plot=FALSE,...){
 }
 
 #' Plot an open street map using ggplot2
-#' @param data an OpenStreetMap object
+#' @param object an OpenStreetMap object
 #' @param expand if true the plotting bounds are expanded to the bounding box
 #' @param ... not used
 #' @examples \dontrun{
@@ -59,9 +73,9 @@ autoplot.osmtile <- function(data,plot=FALSE,...){
 #' }
 #' @method autoplot OpenStreetMap
 #' @export
-autoplot.OpenStreetMap <- function(data, expand=TRUE, ...){
+autoplot.OpenStreetMap <- function(object, expand=TRUE, ...){
 	x <- y <- NULL
-	x <- data
+	x <- data <- object
 	p1 <- x$bbox$p1
 	p2 <- x$bbox$p2
 	p <- ggplot2::ggplot(ggplot2::aes(x=x,y=y),data=data.frame(x=(p1[1]+p2[1])/2,

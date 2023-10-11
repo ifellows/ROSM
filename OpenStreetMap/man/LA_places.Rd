@@ -8,4 +8,3 @@
 Places of interest in Los Angeles
 }
 \keyword{data}
-

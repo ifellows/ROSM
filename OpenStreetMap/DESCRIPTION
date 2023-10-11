@@ -9,15 +9,12 @@ Description: Accesses high resolution raster maps using the OpenStreetMap
     may be constructed using custom tile servers.  Maps can be
     plotted using either base graphics, or ggplot2. This package is not affiliated
     with the OpenStreetMap.org mapping project.
-SystemRequirements: Java (>= 1.5), JRI
+SystemRequirements: Java (>= 1.8), JRI
 Version: 0.4.0
-URL: https://github.com/ifellows/ROSM http://www.fellstat.com http://blog.fellstat.com/?cat=15
+URL: https://github.com/ifellows/ROSM https://www.fellstat.com
 Depends:
     methods,
-    R (>= 4.2.2)
-Suggests:
-    colorspace,
-    maptools
+    R (>= 4.2.0)
 Imports:
 	grDevices,
     ggplot2 (>= 0.9.0),
@@ -29,4 +26,4 @@ Collate:
     'osm.R'
     'autoplot.R'
     'zzz.R'
-RoxygenNote: 5.0.1
+RoxygenNote: 7.2.2

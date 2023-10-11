@@ -4,10 +4,10 @@
 \alias{autoplot.OpenStreetMap}
 \title{Plot an open street map using ggplot2}
 \usage{
-\method{autoplot}{OpenStreetMap}(data, expand = TRUE, ...)
+\method{autoplot}{OpenStreetMap}(object, expand = TRUE, ...)
 }
 \arguments{
-\item{data}{an OpenStreetMap object}
+\item{object}{an OpenStreetMap object}
 
 \item{expand}{if true the plotting bounds are expanded to the bounding box}
 
@@ -22,7 +22,7 @@ require(maps)
 require(ggplot2)
 
 mp <- openmap(c(53.38332836757155,-130.517578125),
-		c(15.792253570362446,-67.939453125),4,'stamen-watercolor')
+		c(15.792253570362446,-67.939453125),4)
 mp_bing <- openmap(c(53.38332836757155,-130.517578125),
 		c(15.792253570362446,-67.939453125),4,'bing')
 states_map <- map_data("state")
@@ -40,4 +40,3 @@ p <- autoplot(mp_bing) + geom_map(aes(x=-10000000,y=4000000,map_id=state,fill=Mu
 print(p)
 }
 }
-

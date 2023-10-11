@@ -8,4 +8,3 @@
 The United States
 }
 \keyword{data}
-

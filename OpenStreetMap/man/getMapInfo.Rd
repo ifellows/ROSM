@@ -9,4 +9,3 @@ getMapInfo()
 \description{
 Returns a table with relevant source and attribution info for each map type
 }
-

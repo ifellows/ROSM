@@ -16,4 +16,3 @@ projectMercator(lat, long, drop = TRUE)
 \description{
 Maps long lat values to the open street map mercator projection
 }
-

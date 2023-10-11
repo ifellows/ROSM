@@ -9,4 +9,3 @@ longlat()
 \description{
 Latitude Longitude projection
 }
-
