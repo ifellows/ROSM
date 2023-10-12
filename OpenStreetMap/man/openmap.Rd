@@ -35,9 +35,9 @@ Get a map based on lat long coordinates
 }
 \details{
 Type may be the url of a custom tile server (http://wiki.osgeo.org/wiki/Tile_Map_Service_Specification).
-should include {z}, {y}, and {x} specifying where the zoom, xtile and ytile location should be substituted. e.g.
+should include \{z\}, \{y\}, and \{x\} specifying where the zoom, xtile and ytile location should be substituted. e.g.
 
-http://api.someplace.com/.../{z}/{x}/{y}.png
+http://api.someplace.com/.../\{z\}/\{x\}/\{y\}.png
 }
 \examples{
 \dontrun{
