@@ -20,3 +20,33 @@
 \description{
 Plot an OpenStreetMap object.
 }
+\examples{
+\dontrun{
+#
+#	The following examples
+#	plot using native mercator coordinates,
+#	transforming the data where needed
+#
+library(sp)
+m <- c(25.7738889,-80.1938889)
+j <- c(58.3019444,-134.4197222)
+miami <- projectMercator(25.7738889,-80.1938889)
+jun <- projectMercator(58.3019444,-134.4197222)
+data(states)
+map <- openmap(j,m,4,type="esri-terrain")
+plot(map,removeMargin=FALSE)
+plot(states,add=TRUE)
+
+data(LA_places)
+longBeachHarbor <- openmap(c(33.760525217369974,-118.22052955627441),
+	c(33.73290566922855,-118.17521095275879),14,'osm')
+coords <- coordinates(LA_places)
+x <- coords[,1]
+y <- coords[,2]
+txt <- slot(LA_places,"data")[,'NAME']
+plot(longBeachHarbor)
+points(x,y,col="red")
+text(x,y,txt,col="white",adj=0)
+
+}
+}

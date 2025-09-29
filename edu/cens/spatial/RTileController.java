@@ -34,7 +34,7 @@ public class RTileController extends TileController{
 	        		//new OsmTileSource.MapnikBw(),
 	        		//new OsmTileSource.MapToolKitTopo(),
 	        		//new OsmTileSource.Waze(),
-	                new BingAerialTileSource(),
+	            //    new BingAerialTileSource(),
 	        		new StamenTileSource.Toner(),
 	        		new StamenTileSource.Terrain(),
 	        		new StamenTileSource.WaterColor(),

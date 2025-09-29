@@ -101,8 +101,8 @@ plot.osmtile <- function(x, y=NULL, add=TRUE, raster=TRUE, ...){
 #' http://api.someplace.com/.../\{z\}/\{x\}/\{y\}.png
 #'
 #' @examples \dontrun{
-#' #show some of the maps available
-#' nm <- c("osm","bing","osm-german","esri","esri-topo","esri-physical","esri-shaded",
+#' # Some of the maps available
+#' nm <- c("osm","osm-german","esri","esri-topo","esri-physical","esri-shaded",
 #'   "esri-imagery","esri-terrain","esri-natgeo","nps","apple-iphoto")
 #' par(mfrow=c(3,4), mar=c(0,0,0,0))
 #' #Korea
@@ -112,7 +112,7 @@ plot.osmtile <- function(x, y=NULL, add=TRUE, raster=TRUE, ...){
 #'			minNumTiles=3,type=nm[i])
 #'	plot(map)
 #'}
-#' # Some maps from custom urls (use your own API key)
+#' # Maps from custom urls (use your own API key)
 #' apiKey <- paste0("?access_token=",
 #'  "pk.eyJ1IjoidGhlZmVsbCIsImEiOiJjaXN1anNwODEwMWlrMnRvZHBhamRrZjlqIn0.Gf8qLSpZ6yo5yfQhEutFfQ")
 #' baseUrl <- "https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v9/tiles/256/{z}/{x}/{y}"
@@ -122,25 +122,25 @@ plot.osmtile <- function(x, y=NULL, add=TRUE, raster=TRUE, ...){
 #' 		type=paste0(baseUrl,apiKey))
 #' plot(map)
 #'
-#' baseUrl <- "https://api.mapbox.com/styles/v1/mapbox/dark-v9/tiles/256/{z}/{x}/{y}"
-#' map <- openmap(c(43.46886761482925,119.94873046875),
-#'		c(33.22949814144951,133.9892578125),
-#' 		minNumTiles=4,
-#' 		type=paste0(baseUrl,apiKey))
-#' plot(map)
 #'
 #'
-#'#plot Korea with ggplot2.
+#'# Plot Korea with ggplot2.
 #'library(ggplot2)
 #'map <- openmap(c(43.46886761482925,119.94873046875),
 #'		c(33.22949814144951,133.9892578125),
 #'		minNumTiles=4)
 #'autoplot(map)
 #'
+#'# Lambert Conic Conformal Map Projection
+#'map_llc <- openproj(map, projection=
+#'	"+proj=lcc +lat_1=33 +lat_2=45 +lat_0=39 +lon_0=-96")
+#'plot(map_llc,removeMargin=TRUE)
+#'
+#'
 #' }
 #' @export
 openmap <- function(upperLeft,lowerRight,zoom=NULL,
-		type=c("osm","bing",
+		type=c("osm",
 			"osm-german",
 			"esri","esri-topo","esri-physical","esri-shaded","esri-imagery","esri-terrain","esri-natgeo",
 			"nps","apple-iphoto", "osm-public-transport"),
@@ -149,7 +149,7 @@ openmap <- function(upperLeft,lowerRight,zoom=NULL,
 	type <- type[1]
 	type <- switch(
 	  type,
-	  "osm" = "http://tile.openstreetmap.org/{z}/{x}/{y}.png",
+	  "osm" = "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
 	  "esri" = "https://server.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}.png",
 	  "esri-topo" = "https://server.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}.png",
 	  "esri-physical" = "https://server.arcgisonline.com/arcgis/rest/services/World_Physical_Map/MapServer/tile/{z}/{y}/{x}.png",
@@ -237,7 +237,7 @@ openmap <- function(upperLeft,lowerRight,zoom=NULL,
 #'
 #'data(LA_places)
 #'longBeachHarbor <- openmap(c(33.760525217369974,-118.22052955627441),
-#'		c(33.73290566922855,-118.17521095275879),14,'bing')
+#'		c(33.73290566922855,-118.17521095275879),14,'osm')
 #'coords <- coordinates(LA_places)
 #'x <- coords[,1]
 #'y <- coords[,2]
@@ -247,8 +247,6 @@ openmap <- function(upperLeft,lowerRight,zoom=NULL,
 #'text(x,y,txt,col="white",adj=0)
 #'
 #'}
-
-#' }
 #' @export
 plot.OpenStreetMap <- function(x,y=NULL,add=FALSE,removeMargin=TRUE, ...){
 	mar <- par("mar")
@@ -297,7 +295,7 @@ setMethod("raster","osmtile",function(x, ...){
 #' @examples \dontrun{
 #' library(raster)
 #' longBeachHarbor <- openmap(c(33.760525217369974,-118.22052955627441),
-#' 		c(33.73290566922855,-118.17521095275879),14,'bing')
+#' 		c(33.73290566922855,-118.17521095275879),14,"esri-imagery")
 #' ras <- raster(longBeachHarbor)
 #' plotRGB(ras)
 #' }
@@ -329,9 +327,9 @@ setMethod("raster","OpenStreetMap",function(x, ...){
 #' @examples \dontrun{
 #'library(maps)
 #'
-#'#plot bing map in native mercator coords
+#'#plot map in native mercator coords
 #'map <- openmap(c(70,-179),
-#'		c(-70,179),zoom=1,type='bing')
+#'		c(-70,179),zoom=1,type="esri-imagery")
 #'plot(map)
 #'
 #'#using longlat projection lets us combine with the maps library

@@ -8,8 +8,8 @@ openmap(
   upperLeft,
   lowerRight,
   zoom = NULL,
-  type = c("osm", "bing", "osm-german", "esri", "esri-topo", "esri-physical",
-    "esri-shaded", "esri-imagery", "esri-terrain", "esri-natgeo", "nps", "apple-iphoto",
+  type = c("osm", "osm-german", "esri", "esri-topo", "esri-physical", "esri-shaded",
+    "esri-imagery", "esri-terrain", "esri-natgeo", "nps", "apple-iphoto",
     "osm-public-transport"),
   minNumTiles = 9L,
   mergeTiles = TRUE
@@ -41,8 +41,8 @@ http://api.someplace.com/.../\{z\}/\{x\}/\{y\}.png
 }
 \examples{
 \dontrun{
-#show some of the maps available
-nm <- c("osm","bing","osm-german","esri","esri-topo","esri-physical","esri-shaded",
+# Some of the maps available
+nm <- c("osm","osm-german","esri","esri-topo","esri-physical","esri-shaded",
   "esri-imagery","esri-terrain","esri-natgeo","nps","apple-iphoto")
 par(mfrow=c(3,4), mar=c(0,0,0,0))
 #Korea
@@ -52,7 +52,7 @@ for(i in 1:length(nm)){
 		minNumTiles=3,type=nm[i])
 plot(map)
 }
-# Some maps from custom urls (use your own API key)
+# Maps from custom urls (use your own API key)
 apiKey <- paste0("?access_token=",
  "pk.eyJ1IjoidGhlZmVsbCIsImEiOiJjaXN1anNwODEwMWlrMnRvZHBhamRrZjlqIn0.Gf8qLSpZ6yo5yfQhEutFfQ")
 baseUrl <- "https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v9/tiles/256/{z}/{x}/{y}"
@@ -62,20 +62,20 @@ map <- openmap(c(43.46886761482925,119.94873046875),
 		type=paste0(baseUrl,apiKey))
 plot(map)
 
-baseUrl <- "https://api.mapbox.com/styles/v1/mapbox/dark-v9/tiles/256/{z}/{x}/{y}"
-map <- openmap(c(43.46886761482925,119.94873046875),
-	c(33.22949814144951,133.9892578125),
-		minNumTiles=4,
-		type=paste0(baseUrl,apiKey))
-plot(map)
 
 
-#plot Korea with ggplot2.
+# Plot Korea with ggplot2.
 library(ggplot2)
 map <- openmap(c(43.46886761482925,119.94873046875),
 	c(33.22949814144951,133.9892578125),
 	minNumTiles=4)
 autoplot(map)
+
+# Lambert Conic Conformal Map Projection
+map_llc <- openproj(map, projection=
+"+proj=lcc +lat_1=33 +lat_2=45 +lat_0=39 +lon_0=-96")
+plot(map_llc,removeMargin=TRUE)
+
 
 }
 }

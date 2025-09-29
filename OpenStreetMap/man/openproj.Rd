@@ -20,9 +20,9 @@ Projects the open street map to an alternate coordinate system
 \dontrun{
 library(maps)
 
-#plot bing map in native mercator coords
+#plot map in native mercator coords
 map <- openmap(c(70,-179),
-	c(-70,179),zoom=1,type='bing')
+	c(-70,179),zoom=1,type="esri-imagery")
 plot(map)
 
 #using longlat projection lets us combine with the maps library

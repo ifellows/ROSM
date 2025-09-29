@@ -118,9 +118,9 @@ public class BingAerialTileSource extends AbstractOsmTileSource {
             //System.err.println("Added " + handler.attributions.size() + " attributions.");
             return handler.attributions;
         } catch (IOException e) {
-            System.err.println("Could not open Bing aerials attribution metadata.");
+            //System.err.println("Could not open Bing aerials attribution metadata.");
         } catch (SAXException e) {
-            System.err.println("Could not parse Bing aerials attribution metadata.");
+            //System.err.println("Could not parse Bing aerials attribution metadata.");
             e.printStackTrace();
         }
         return null;

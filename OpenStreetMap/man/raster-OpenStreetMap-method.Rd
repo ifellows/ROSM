@@ -18,7 +18,7 @@ Create a RasterLayer from an OpenStreetMap
 \dontrun{
 library(raster)
 longBeachHarbor <- openmap(c(33.760525217369974,-118.22052955627441),
-		c(33.73290566922855,-118.17521095275879),14,'bing')
+		c(33.73290566922855,-118.17521095275879),14,"esri-imagery")
 ras <- raster(longBeachHarbor)
 plotRGB(ras)
 }
