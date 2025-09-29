@@ -2,7 +2,11 @@ Package: OpenStreetMap
 Maintainer: Ian Fellows <ian@fellstat.com>
 License: GPL-2 | file LICENCE
 Title: Access to Open Street Map Raster Images
-Author: Ian Fellows, using the JMapViewer library by Jan Peter Stotz
+Authors@R: c(person(given = "Ian",
+                      family = "Fellows",
+                      role = c("aut", "cre"),
+                      email = "ian@fellstat.com"),
+                      person(given="Jan-Peter", family="Stotz",role="aut"))
 Description: Accesses high resolution raster maps using the OpenStreetMap
     protocol. Dozens of road, satellite, and topographic map servers are directly
     supported. Additionally raster maps
